@@ -17,28 +17,9 @@
 友好的用户交互效果
 适配移动设备的布局
 
-simple_proxy/
-├── requirements.txt
-├── setup.py
-├── simple_proxy/
-│   ├── __init__.py
-│   ├── config.py
-│   ├── proxy_server.py
-│   ├── rule_engine.py
-│   ├── web_interface.py
-│   └── static/
-│       ├── index.html
-│       ├── css/
-│       │   └── style.css
-│       └── js/
-│           └── main.js
-└── tests/
-    ├── __init__.py
-    ├── test_proxy_server.py
-    ├── test_rule_engine.py
-    └── test_config.py
-
 ## TODO
 1. 增加一个组件，通过ssh将本地listen的端口转发到远端，这个也可以配置，如：ssh -R 10088:127.0.0.1:10088 ubuntu@10.227.157.229 -p 28047
    可以配置多个，启动多个，监测运行
+
+2. 支持windows
 
