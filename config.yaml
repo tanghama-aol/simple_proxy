@@ -1,0 +1,12 @@
+default_mode: direct
+proxy_settings:
+  default_proxy:
+    host: proxy.example.com
+    port: 8080
+    type: http
+rules:
+  - pattern: "192\\.168\\.*"
+    action: direct
+  - pattern: "10\\.*"
+    action: proxy
+    proxy: default_proxy

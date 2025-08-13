@@ -3,7 +3,19 @@
 配置界面类似switchy omega插件，需要使用html和js，通过web方式进行配置，配置包括规则和出口设置，出口设置有直接，代理， 服务器可以切换直接，代理，自动方式。
 
 
+代理服务器添加类似 Switchy Omega 的 Web 配置界面。目前已经完成了基础框架设计，包括：
 
+主界面布局 (web/index.html)：
+代理模式选择（直接连接、代理服务器、自动切换）
+代理服务器设置（主机地址和端口）
+规则管理（添加、导入、导出规则）
+规则列表展示和编辑
+配置保存和重置功能
+界面样式 (web/css/style.css)：
+现代化的响应式设计
+清晰的视觉层次
+友好的用户交互效果
+适配移动设备的布局
 
 simple_proxy/
 ├── requirements.txt
@@ -25,4 +37,8 @@ simple_proxy/
     ├── test_proxy_server.py
     ├── test_rule_engine.py
     └── test_config.py
+
+## TODO
+1. 增加一个组件，通过ssh将本地listen的端口转发到远端，这个也可以配置，如：ssh -R 10088:127.0.0.1:10088 ubuntu@10.227.157.229 -p 28047
+   可以配置多个，启动多个，监测运行
 

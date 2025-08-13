@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Proxy Configuration</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Simple Proxy Configuration</h1>
+        
+        <div class="card">
+            <h2>Proxy Rules</h2>
+            <div class="rule-form">
+                <input type="text" id="pattern" placeholder="IP Pattern (regex)">
+                <select id="action">
+                    <option value="direct">Direct</option>
+                    <option value="proxy">Proxy</option>
+                </select>
+                <input type="text" id="proxy" placeholder="Proxy Name (optional)">
+                <button onclick="addRule()">Add Rule</button>
+            </div>
+            
+            <div class="rules-list" id="rulesList">
+                <!-- Rules will be added here dynamically -->
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Current Configuration</h2>
+            <pre id="currentConfig"></pre>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
