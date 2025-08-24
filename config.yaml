@@ -1,12 +1,49 @@
-default_mode: direct
+default_mode: proxy
 proxy_settings:
   default_proxy:
     host: proxy.example.com
     port: 8080
     type: http
 rules:
+  # 域名规则：*.zte.com.cn 直接访问
+  - pattern: "*.zte.com.cn"
+    type: domain
+    action: direct
+  # 域名规则：内网域名直接访问
+  - pattern: "*.local"
+    type: domain
+    action: direct
+  # 域名规则：公司内部域名直接访问
+  - pattern: "*.internal.company.com"
+    type: domain
+    action: direct
+  # IP规则：局域网IP直接访问
   - pattern: "192\\.168\\.*"
+    type: ip
     action: direct
   - pattern: "10\\.*"
-    action: proxy
-    proxy: default_proxy
+    type: ip
+    action: direct
+  # 默认其他域名通过代理访问
+
+# SSH端口转发配置
+ssh_forwarding:
+  - name: "远程代理转发"
+    enabled: true
+    local_port: 8080          # 本地代理端口
+    remote_port: 10088        # 远程映射端口
+    remote_host: "127.0.0.1"  # 远程主机（通常是127.0.0.1）
+    ssh_host: "10.227.157.229" # SSH服务器地址
+    ssh_port: 28047           # SSH端口
+    ssh_user: "ubuntu"        # SSH用户名
+    auto_restart: true        # 自动重启
+    
+  - name: "备用转发"
+    enabled: false
+    local_port: 8080
+    remote_port: 10089
+    remote_host: "127.0.0.1"
+    ssh_host: "backup.server.com"
+    ssh_port: 22
+    ssh_user: "user"
+    auto_restart: true

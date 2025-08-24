@@ -31,27 +31,33 @@ class ProxyConfig:
                 
         return default_config
     
-    def save_config(self) -> None:
-        with open(self.config_path, 'w') as f:
+    def save(self) -> None:
+        """保存配置到文件"""
+        with open(self.config_path, 'w', encoding='utf-8') as f:
             if self.config_path.endswith('.json'):
-                json.dump(self.config, f, indent=2)
+                json.dump(self.config, f, indent=2, ensure_ascii=False)
             else:
-                yaml.safe_dump(self.config, f)
+                yaml.safe_dump(self.config, f, allow_unicode=True, default_flow_style=False)
     
-    def add_rule(self, pattern: str, action: str, proxy: Optional[str] = None) -> None:
-        rule = {"pattern": pattern, "action": action}
-        if proxy:
-            rule["proxy"] = proxy
+    def add_rule(self, rule: Dict) -> None:
+        """添加新规则"""
         self.config["rules"].append(rule)
-        self.save_config()
     
-    def remove_rule(self, pattern: str) -> bool:
+    def remove_rule(self, rule_index: int) -> bool:
+        """根据索引删除规则"""
+        try:
+            if 0 <= rule_index < len(self.config["rules"]):
+                self.config["rules"].pop(rule_index)
+                return True
+            return False
+        except (IndexError, TypeError):
+            return False
+    
+    def remove_rule_by_pattern(self, pattern: str) -> bool:
+        """根据模式删除规则（保持向后兼容）"""
         initial_length = len(self.config["rules"])
         self.config["rules"] = [r for r in self.config["rules"] if r["pattern"] != pattern]
-        if len(self.config["rules"]) != initial_length:
-            self.save_config()
-            return True
-        return False
+        return len(self.config["rules"]) != initial_length
     
     def get_rules(self) -> List[Dict]:
         return self.config["rules"]
